@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMKEC - College Admission Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f7f9;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to bottom, #003c95 0%, rgb(70, 50, 159) 50%, #310a6f 100%);
+            color: rgb(255, 255, 255);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #0040a0;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .benefit-icon {
+            color: #667eea;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Process Section */
+        .process {
+            background: white;
+        }
+
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: #666;
+        }
+
+        /* Users Section */
+        .users {
+            background: #f8f9fa;
+        }
+
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .user-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .user-avatar {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-card h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-card p {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .step {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                🎓 RMK Group of Institutions
+            </div>
+            <ul class="nav-links">
+                <li><a href="https://www.rmkec.ac.in/2023/">Home</a></li>
+                <li><a href="https://www.rmkec.ac.in/2023/academics/curriculum-and-syllabus/">Features</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#users">Users</a></li>
+                <li><a href="https://www.rmkec.ac.in/2023/administration/principal/">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>RMK ENGINEERING COLLEGE</h1>
+            <h2>College Admission Management</h2>
+            <p>Streamline your admission process with our comprehensive, web-based management solution. Automated, secure, and accessible from anywhere.</p>
+            <div class="cta-buttons">
+                <a href="application_form.html" class="btn btn-primary">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Online Application</h3>
+                    <p>Students can easily fill application forms, choose courses, and submit documents online from anywhere.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📄</div>
+                    <h3>Document Upload</h3>
+                    <p>Secure document upload system with support for multiple file formats and automatic validation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Secure Payments</h3>
+                    <p>Integrated payment gateway supporting UPI, Net Banking, and Credit/Debit Cards with instant receipt generation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Application Verification</h3>
+                    <p>Admin panel for efficient document verification, application approval/rejection with remarks.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Merit List Generation</h3>
+                    <p>Automated merit list creation based on marks and criteria with transparent selection process.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Real-time Tracking</h3>
+                    <p>Students can track their application status in real-time and receive instant notifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Benefits</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">⚡</div>
+                    <div>
+                        <h4>Faster Processing</h4>
+                        <p>Significantly reduces admission processing time</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📉</div>
+                    <div>
+                        <h4>Reduced Paperwork</h4>
+                        <p>Eliminates manual paperwork and errors</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔍</div>
+                    <div>
+                        <h4>Improved Transparency</h4>
+                        <p>Clear and transparent selection process</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">💾</div>
+                    <div>
+                        <h4>Centralized Records</h4>
+                        <p>All data stored securely in one place</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🌐</div>
+                    <div>
+                        <h4>Accessible Anywhere</h4>
+                        <p>Access from web or mobile devices</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🔒</div>
+                    <div>
+                        <h4>Secure & Reliable</h4>
+                        <p>Bank-grade security for data protection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+        <div class="container">
+            <h2 class="section-title">Admission Process</h2>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Registration & Login</h3>
+                        <p>Create your account with email/OTP verification and secure login credentials.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Fill Application Form</h3>
+                        <p>Complete the application form with your personal and academic details.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Upload Documents</h3>
+                        <p>Upload required documents including certificates, ID proof, and photographs.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Pay Admission Fees</h3>
+                        <p>Complete the payment through secure payment gateway and receive instant receipt.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Admin Verification</h3>
+                        <p>Application and documents verified by admission officers.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Merit List & Admission</h3>
+                        <p>View merit list and receive admission confirmation letter if selected.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Users Section -->
+    <section id="users" class="users">
+        <div class="container">
+            <h2 class="section-title">Who Uses CAMS?</h2>
+            <div class="users-grid">
+                <div class="user-card">
+                    <div class="user-avatar">👨‍🎓</div>
+                    <h3>Students</h3>
+                    <p>Apply for courses, upload documents, pay fees, and track admission status effortlessly.</p>
+                </div>
+                <div class="user-card">
+                    <div class="user-avatar">👨‍💼</div>
+                    <h3>Admission Officers</h3>
+                    <p>Verify applications, approve/reject candidates, and generate comprehensive reports.</p>
+                </div>
+                <div class="user-card">
+                    <div class="user-avatar">👨‍🏫</div>
+                    <h3>Faculty Committee</h3>
+                    <p>Review shortlisted candidates and provide evaluation feedback for final selection.</p>
+                </div>
+                <div class="user-card">
+                    <div class="user-avatar">⚙️</div>
+                    <h3>System Admin</h3>
+                    <p>Manage users, maintain security, handle database backups, and system configuration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p>&copy; 2025 College Admission Management System (CAMS). All rights reserved.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.8;">Developed by Dinesh T N | RMK Engineering College</p>
+        </div>
+    </footer>
+</body>
+</html>
